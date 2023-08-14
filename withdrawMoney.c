@@ -1,9 +1,5 @@
-#include <stdio.h>
-#include <stdbool.h>
-#include <sqlite3.h>
-#include <string.h>
+#include "login.h"
 
-#define MAX_LENGTH 100
 void withdrawMoney(sqlite3 *db, int accountNumber, float amount) {
     char query[MAX_LENGTH];
     sprintf(query, "SELECT balance, account_type FROM accounts WHERE account_number = %d", accountNumber);

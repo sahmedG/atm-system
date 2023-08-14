@@ -1,9 +1,4 @@
-#include <stdio.h>
-#include <stdbool.h>
-#include <sqlite3.h>
-#include <string.h>
-
-#define MAX_LENGTH 100
+#include "login.h"
 
 void transferMoney(sqlite3 *db, const char *username) {
     int fromAccountNumber, toAccountNumber;

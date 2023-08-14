@@ -1,9 +1,4 @@
-#include <stdio.h>
-#include <stdbool.h>
-#include <sqlite3.h>
-#include <string.h>
-
-#define MAX_LENGTH 100
+#include "login.h"
 
 void transferOwnership(sqlite3 *db, int accountNumber, const char *newOwner) {
     char query[MAX_LENGTH];

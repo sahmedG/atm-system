@@ -1,12 +1,8 @@
-#define MAX_LENGTH 100
-#include <stdio.h>
-#include <stdbool.h>
-#include <sqlite3.h>
-#include <string.h>
+#include "login.h"
 void checkAllAccounts(sqlite3 *db, int *userid, const char *username)
 {
     char query[MAX_LENGTH];
-    sprintf(query, "SELECT * FROM accounts WHERE user_id = %d", userid);
+    sprintf(query, "SELECT * FROM accounts WHERE account_number = %d", *userid);
 
     sqlite3_stmt *stmt;
     int result = sqlite3_prepare_v2(db, query, -1, &stmt, NULL);
@@ -21,9 +17,9 @@ void checkAllAccounts(sqlite3 *db, int *userid, const char *username)
     {
         int accountNumber = sqlite3_column_int(stmt, 0);
         const char *accountType = (const char *)sqlite3_column_text(stmt, 6);
-        float balance = sqlite3_column_double(stmt, 5);
+        float balance = sqlite3_column_double(stmt, 4);
         const char *country = (const char *)sqlite3_column_text(stmt, 2);
-        const char *phone_no = sqlite3_column_text(stmt, 3);
+        const char *phone_no = (const char *) sqlite3_column_text(stmt, 3);
         const char *created_on = (const char *)sqlite3_column_text(stmt, 7);
         printf("Account Number: %d\n", accountNumber);
         printf("Account Type: %s\n", accountType);

@@ -1,8 +1,4 @@
-#include <stdio.h>
-#include <stdbool.h>
-#include <sqlite3.h>
-#include <string.h>
-#define MAX_LENGTH 100
+#include "login.h"
 void depositMoney(sqlite3 *db, int accountNumber, float amount) {
     printf("%f\n", amount);
     char query[MAX_LENGTH];

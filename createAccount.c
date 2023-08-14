@@ -1,8 +1,4 @@
-#include <stdio.h>
-#include <stdbool.h>
-#include <sqlite3.h>
-#include <string.h>
-#define MAX_LENGTH 200
+#include "login.h"
 
 void createAccount(sqlite3 *db, const char *user_name, const char *country, const char *phoneNumber, const char *accountType)
 {

@@ -1,6 +1,5 @@
 #include "login.h"
 
-#define MAX_LENGTH 100
 bool authenticateUser(sqlite3 *db, const char *username, const char *password) {
     char query[MAX_LENGTH];
     int user_id;
