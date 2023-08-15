@@ -2,13 +2,23 @@
 #include <stdbool.h>
 #include <sqlite3.h>
 #include <string.h>
+#include <stdlib.h>
+#include <openssl/sha.h>
 #define MAX_LENGTH 200
-bool authenticateUser(sqlite3 *db, const char *username, const char *password);
-void depositMoney(sqlite3 *db, int accountNumber, float amount);
-void checkAllAccounts(sqlite3 *db, int *userid, const char *username);
-void updateAccountInfo(sqlite3 *db, int accountId, const char *country, const char *phoneNumber);
-void withdrawMoney(sqlite3 *db, int accountNumber, float amount);
-void createAccount(sqlite3 *db, const char *user_name, const char *country, const char *phoneNumber, const char *accountType);
-void transferMoney(sqlite3 *db, const char *username);
-void registerUser(sqlite3 *db, const char *username, const char *password);
-void transferOwnership(sqlite3 *db, int accountNumber, const char *newOwner);
+bool authenticateUser(sqlite3 *db);
+void depositMoney(sqlite3 *db, int user_id);
+void checkAllAccounts(sqlite3 *db,int user_id);
+void updateAccountInfo(sqlite3 *db, int accountId);
+void withdrawMoney(sqlite3 *db, int user_id);
+void createAccount(sqlite3 *db, int user_id);
+void transferMoney(sqlite3 *db, int user_id);
+void registerUser(sqlite3 *db);
+void transferOwnership(sqlite3 *db,int user_id);
+void success(sqlite3 *db,int user_id);
+void initMenu(sqlite3 *db);
+void mainMenu(sqlite3 *db,int user_id);
+void checkOneAccount(sqlite3 *db, int user_id);
+void Success(sqlite3 *db, int user_id);
+void makeTransactionsMenu(sqlite3 *db,int user_id);
+void Rectangle(int x,int y,int l,int b);
+void Gotoxy(int x,int y);

@@ -1,6 +1,6 @@
 #include "login.h"
 
-void transferMoney(sqlite3 *db, const char *username) {
+void transferMoney(sqlite3 *db, int user_id) {
     int fromAccountNumber, toAccountNumber;
     float amount;
 

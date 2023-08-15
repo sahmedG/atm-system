@@ -1,7 +1,7 @@
 # CFLAGS = -Wall -Wextra -std=c99
-LDFLAGS = -lsqlite3
+LDFLAGS = -lsqlite3 -lcrypto
 
-SRC = main.c register.c login.c createAccount.c updateAccount.c checkAllAccounts.c depositMoney.c withdrawMoney.c transferMoney.c transferOwnership.c
+SRC = main.c register.c login.c createAccount.c updateAccount.c checkAllAccounts.c depositMoney.c withdrawMoney.c transferMoney.c transferOwnership.c checkOneaccount.c success.c transactoins.c
 OBJ = $(SRC:.c=.o)
 
 atm: $(OBJ)
