@@ -8,18 +8,16 @@ void createAccount(sqlite3 *db, int user_id)
     char country[MAX_LENGTH];
     char phoneNumber[MAX_LENGTH];
     char accountType[MAX_LENGTH];
-    float balanceMoney[MAX_LENGTH];
 
-    printf("Enter country: ");
-    scanf("%s", country);
+    printw("Enter country: ");
+    getstr(country);
+    printw("Enter phone number: ");
+    getstr(phoneNumber);
 
-    printf("Enter phone number: ");
-    scanf("%s", phoneNumber);
-
-    printf(
+    
+    printw(
         "Enter account type (savings/fixed01/fixed02/fixed03/current): ");
-    scanf("%s", accountType);
-
+    getstr(accountType);
     if (strcmp(accountType, "savings") == 0)
     {
         interestRate = 0.07;
@@ -39,11 +37,11 @@ void createAccount(sqlite3 *db, int user_id)
     else if (strcmp(accountType, "current") == 0)
     {
         interestRate = 0.0;
-        printf("You will not get interests because the account is of type current.\n");
+        printw("You will not get interests because the account is of type current.\n");
     }
     else
     {
-        printf("Invalid account type.\n");
+        printw("Invalid account type.\n");
         return;
     }
 
@@ -54,11 +52,11 @@ void createAccount(sqlite3 *db, int user_id)
     int result = sqlite3_exec(db, query, NULL, NULL, NULL);
     if (result != SQLITE_OK)
     {
-        printf("Error creating account: %s\n", sqlite3_errmsg(db));
+        printw("Error creating account: %s\n", sqlite3_errmsg(db));
     }
     else
     {
-        printf("Account created successfully!\n");
+        printw("Account created successfully!\n");
     }
-    Success(db,user_id);
+    printw("Press enter to go back\n");
 }

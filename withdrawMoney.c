@@ -5,17 +5,23 @@ void withdrawMoney(sqlite3 *db, int user_id)
     char query[MAX_LENGTH];
     int accountNumber;
     float amount;
-    printf("Enter account number: ");
-    scanf("%d", &accountNumber);
-    printf("Enter amount to withdraw: ");
-    scanf("%f", &amount);
 
-    sprintf(query, "SELECT balance, account_type FROM accounts WHERE account_number = %d", accountNumber);
+    clear();
+    printw("Withdraw Money\n");
+    printw("Enter account number: ");
+    scanw("%d", &accountNumber);
+
+    printw("Enter amount to withdraw: $");
+    scanw("%f", &amount);
+
+    sprintf(query, "SELECT balance, account_type FROM accounts WHERE account_number = %d AND user_id = %d", accountNumber, user_id);
     sqlite3_stmt *stmt;
     int result = sqlite3_prepare_v2(db, query, -1, &stmt, NULL);
     if (result != SQLITE_OK)
     {
-        printf("Query error: %s\n", sqlite3_errmsg(db));
+        printw("Query error: %s\n", sqlite3_errmsg(db));
+        refresh();
+        getch();
         return;
     }
 
@@ -29,8 +35,8 @@ void withdrawMoney(sqlite3 *db, int user_id)
         {
             if (amount <= balance)
             {
-                sprintf(query, "UPDATE accounts SET balance = balance - %.2f WHERE account_number = %d",
-                        amount, accountNumber);
+                sprintf(query, "UPDATE accounts SET balance = balance - %.2f WHERE account_number = %d AND user_id = %d",
+                        amount, accountNumber, user_id);
 
                 result = sqlite3_exec(db, query, NULL, NULL, NULL);
                 if (result == SQLITE_OK)
@@ -39,30 +45,33 @@ void withdrawMoney(sqlite3 *db, int user_id)
                     result = sqlite3_exec(db, query, NULL, NULL, NULL);
                     if (result != SQLITE_OK)
                     {
-                        printf("Error inserting transaction: %s\n", sqlite3_errmsg(db));
+                        printw("Error inserting transaction: %s\n", sqlite3_errmsg(db));
+                        refresh();
+                        getch();
                         return;
                     }
-                    printf("Money withdrawn successfully!\n");
-                    sqlite3_finalize(stmt);
-                    Success(db, user_id);
+                    printw("Money withdrawn successfully!\n");
                 }
                 else
                 {
-                    printf("Error withdrawing money: %s\n", sqlite3_errmsg(db));
+                    printw("Error withdrawing money: %s\n", sqlite3_errmsg(db));
                 }
             }
             else
             {
-                printf("Insufficient balance.\n");
+                printw("Insufficient balance.\n");
             }
         }
         else
         {
-            printf("Cannot withdraw from this type of account.\n");
+            printw("Cannot withdraw from this type of account.\n");
         }
     }
     else
     {
-        printf("Account not found.\n");
+        printw("Account not found.\n");
     }
+
+    sqlite3_finalize(stmt);
+    refresh();
 }

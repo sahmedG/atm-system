@@ -1,15 +1,15 @@
 #include "login.h"
-void makeTransactionsMenu(sqlite3 *db, int user_id, char *username)
-{
 
+void initMenu(sqlite3 *db)
+{
     int choice;
     int highlight = 0;  // To highlight the currently selected option
-    int numOptions = 4; // Number of menu options
-
+    int numOptions = 3; // Number of menu options
     while (1)
     {
         clear();
-        printw("Make Transactions\n");
+        // Main menu
+        printw("ATM Management System\n");
 
         for (int i = 0; i < numOptions; i++)
         {
@@ -19,23 +19,18 @@ void makeTransactionsMenu(sqlite3 *db, int user_id, char *username)
             switch (i)
             {
             case 0:
-                printw("Deposit Money\n");
+                printw("Login\n");
                 break;
             case 1:
-                printw("Withdraw Money\n");
+                printw("Register\n");
                 break;
             case 2:
-                printw("Transfer Money\n");
-                break;
-            case 3:
-                printw("Back to Main Menu\n");
+                printw("Exit\n");
                 break;
             }
             attroff(A_REVERSE); // Disable highlighting
         }
-
-        choice = getch(); // Get user input
-
+        choice = getch();
         switch (choice)
         {
         case KEY_UP:
@@ -53,17 +48,14 @@ void makeTransactionsMenu(sqlite3 *db, int user_id, char *username)
             switch (highlight)
             {
             case 0:
-                depositMoney(db, user_id);
+                authenticateUser(db);
                 break;
             case 1:
-                withdrawMoney(db, user_id);
+                registerUser(db);
                 break;
             case 2:
-                transferMoney(db, user_id);
-                break;
-            case 3:
-                mainMenu(db, user_id,username);
-                break;
+                endwin(); // Clean up curses
+                exit(1);
             }
             refresh();
             getch(); // Wait for user input

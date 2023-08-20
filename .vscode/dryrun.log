@@ -1,0 +1,5 @@
+make.exe --dry-run --keep-going --print-directory
+make: Entering directory 'e:/ascii-art/atm-management/atm-system'
+cc -o atm.exe main.o register.o login.o createAccount.o updateAccount.o checkAllAccounts.o depositMoney.o withdrawMoney.o transferMoney.o transferOwnership.o checkOneaccount.o success.o transactoins.o deletAccount.o -lsqlite3 -lcrypto 
+make: Leaving directory 'e:/ascii-art/atm-management/atm-system'
+ 

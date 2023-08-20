@@ -1,32 +1,31 @@
 #include "login.h"
 
-void updateAccountInfo(sqlite3 *db, int user_id)
+bool updateAccountInfo(sqlite3 *db, int user_id)
 {
     char query[MAX_LENGTH];
     int accountNumber;
     char newCountry[MAX_LENGTH];
     char newPhoneNumber[MAX_LENGTH];
 
-    printf("Enter account number: ");
-    scanf("%d", &accountNumber);
+    printw("Enter account number: ");
+    scanw("%d", &accountNumber);
 
-    printf("Enter new country: ");
-    scanf("%s", newCountry);
+    printw("Enter new country: ");
+    getstr(newCountry);
 
-    printf("Enter new phone number: ");
-    scanf("%s", newPhoneNumber);
+    printw("Enter new phone number: ");
+    getstr(newPhoneNumber);
 
-    sprintf(query, "UPDATE accounts SET country = '%s', phone_number = '%s' WHERE account_number = %d",
-            newCountry, newPhoneNumber, accountNumber);
+    sprintf(query, "UPDATE accounts SET country = '%s', phone_number = '%s' WHERE account_number = %d AND user_id =%d",
+            newCountry, newPhoneNumber, accountNumber, user_id);
 
     int result = sqlite3_exec(db, query, NULL, NULL, NULL);
-    if (result != SQLITE_OK)
+    if (result != SQLITE_OK || sqlite3_changes(db) == 0)
     {
-        printf("Error updating account info: %s\n", sqlite3_errmsg(db));
+        return false;
     }
     else
     {
-        printf("Account info updated successfully!\n");
+        return true;
     }
-    Success(db,user_id);
 }

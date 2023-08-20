@@ -55,12 +55,10 @@
   "C_Cpp_Runner.useLeakSanitizer": false,
   "C_Cpp_Runner.showCompilationTime": false,
   "C_Cpp_Runner.useLinkTimeOptimization": false,
-  "sqltools.connections": [
-    {
-      "previewLimit": 50,
-      "driver": "SQLite",
-      "name": "atm_db",
-      "database": "${workspaceFolder:atm-system}/atm.db"
-    }
-  ]
+  "files.associations": {
+    "sqlite3.h": "c",
+    "windows.h": "c",
+    "types.h": "c",
+    "bcrypt.h": "c"
+  }
 }

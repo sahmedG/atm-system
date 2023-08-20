@@ -7,17 +7,17 @@ void depositMoney(sqlite3 *db, int user_id)
     int result;
 
     sqlite3_stmt *stmt;
-    printf("Enter account number: ");
-    scanf("%d", &accountNumber);
-    printf("Enter amount to deposit: ");
-    scanf("%f", &amount);
-    printf("%d", accountNumber);
-    sprintf(query, "SELECT count(*) FROM accounts WHERE account_number = %d", accountNumber),
+    printw("Enter account number: ");
+    scanw("%d", &accountNumber);
+    printw("Enter amount to deposit: $");
+    scanw("%f", &amount);
+
+    sprintf(query, "SELECT count(*) FROM accounts WHERE account_number = %d AND user_id = %d", accountNumber, user_id),
 
         result = sqlite3_prepare_v2(db, query, -1, &stmt, NULL);
     if (result != SQLITE_OK)
     {
-        printf("Error checking account: %s\n", sqlite3_errmsg(db));
+        printw("Error checking account: %s\n", sqlite3_errmsg(db));
         return;
     }
 
@@ -27,12 +27,14 @@ void depositMoney(sqlite3 *db, int user_id)
         int count = sqlite3_column_int(stmt, 0);
         if (count == 0)
         {
-            printf("\nAccount does not exist!\n");
+            printw("\nAccount does not exist!\n");
             sqlite3_finalize(stmt);
             return;
         }
-    } else {
-        printf("Error getting row from database.\n");
+    }
+    else
+    {
+        printw("Error getting row from database.\n");
         sqlite3_finalize(stmt);
         return;
     }
@@ -40,7 +42,7 @@ void depositMoney(sqlite3 *db, int user_id)
     result = sqlite3_exec(db, query, NULL, NULL, NULL);
     if (result != SQLITE_OK)
     {
-        printf("Error depositing money: %s\n", sqlite3_errmsg(db));
+        printw("Error depositing money: %s\n", sqlite3_errmsg(db));
         return;
     }
 
@@ -48,9 +50,10 @@ void depositMoney(sqlite3 *db, int user_id)
     result = sqlite3_exec(db, query, NULL, NULL, NULL);
     if (result != SQLITE_OK)
     {
-        printf("Error inserting transaction: %s\n", sqlite3_errmsg(db));
+        printw("Error inserting transaction: %s\n", sqlite3_errmsg(db));
         return;
     }
-    printf("Deposit successful.\n");
-    Success(db, user_id);
+    printw("Deposit successful.\n");
+    sqlite3_finalize(stmt);
+    return;
 }
