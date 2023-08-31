@@ -17,6 +17,5 @@ int main()
     return 1;
   }
   initMenu(db);
-  sqlite3_close(db);
   return 0;
 }

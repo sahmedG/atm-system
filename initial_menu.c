@@ -55,6 +55,7 @@ void initMenu(sqlite3 *db)
                 break;
             case 2:
                 endwin(); // Clean up curses
+                sqlite3_close(db);
                 exit(1);
             }
             refresh();
@@ -65,7 +66,5 @@ void initMenu(sqlite3 *db)
             break;
         }
     }
-
     endwin(); // Clean up curses
-    exit(1);
 }
